@@ -5,7 +5,7 @@
     "description": "Track brand services for customers, manage product statuses, and generate reports in Odoo.",
     "author": "Proreach",
     "license": "LGPL-3",
-    "depends": ["base", "mail"],
+    "depends": ["base", "mail", "product"],
     "data": [
         'security/ir.model.access.csv',        
         'data/sequence.xml',

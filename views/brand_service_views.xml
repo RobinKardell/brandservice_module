@@ -6,16 +6,46 @@
         <field name="model">brand.service</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <field name="state" widget="statusbar" options="{'clickable': '1'}" 
+                           statusbar_visible="draft,in_progress,done"/>
+                </header>
                 <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
                     <group>
-                        <field name="name"/>
-                        <field name="customer_id"/>
-                        <field name="product_id"/>
-                        <field name="date"/>
-                        <field name="service_type"/>
-                        <field name="state"/>
+                        <group>
+                            <field name="customer_id" options="{'no_create': True}"/>
+                            <field name="contact_id" options="{'no_create': True}"/>
+                            <field name="service_date"/>
+                        </group>
+                        <group>
+                            <field name="create_date" readonly="1"/>
+                        </group>
                     </group>
+                    <notebook>
+                        <page string="Service Lines" name="service_lines">
+                            <field name="service_line_ids">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="status"/>
+                                    <field name="notes"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
             </form>
         </field>
     </record>
@@ -25,14 +55,40 @@
         <field name="name">brand.service.list</field>
         <field name="model">brand.service</field>
         <field name="arch" type="xml">
-            <list string="Brand Services">
+            <tree decoration-info="state == 'draft'" 
+                  decoration-warning="state == 'in_progress'"
+                  decoration-success="state == 'done'"
+                  decoration-danger="state == 'cancelled'">
                 <field name="name"/>
                 <field name="customer_id"/>
-                <field name="product_id"/>
-                <field name="date"/>
-                <field name="service_type"/>
+                <field name="contact_id"/>
+                <field name="service_date"/>
                 <field name="state"/>
-            </list>
+                <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_brand_service_search" model="ir.ui.view">
+        <field name="name">brand.service.search</field>
+        <field name="model">brand.service</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="customer_id"/>
+                <field name="contact_id"/>
+                <field name="service_date"/>
+                <separator/>
+                <filter string="Draft" name="draft" domain="[('state','=','draft')]"/>
+                <filter string="In Progress" name="in_progress" domain="[('state','=','in_progress')]"/>
+                <filter string="Done" name="done" domain="[('state','=','done')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Customer" name="customer" context="{'group_by':'customer_id'}"/>
+                    <filter string="Status" name="state" context="{'group_by':'state'}"/>
+                    <filter string="Service Date" name="service_date" context="{'group_by':'service_date'}"/>
+                </group>
+            </search>
         </field>
     </record>
 
@@ -40,10 +96,11 @@
     <record id="action_brand_service" model="ir.actions.act_window">
         <field name="name">Brand Services</field>
         <field name="res_model">brand.service</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_brand_service_search"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
-                Create your first brand service!
+                Create your first service report!
             </p>
         </field>
     </record>
