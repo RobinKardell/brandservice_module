@@ -7,7 +7,7 @@ class BrandServiceReportLine(models.Model):
     report_id = fields.Many2one('brandservice.report', string='Report', ondelete='cascade')
     product_id = fields.Many2one('product.product', string='Product', required=True)
     product_qty = fields.Integer(string='Quantity', default=1)
-    line_id = fields.Char(string='Line ID', readonly=True, default=lambda self: self.env['ir.sequence'].next_by_code('brandservice.report.line'))
+    line_id = fields.Char(string='Line ID', readonly=True)
     action_status = fields.Many2one('brandservice.product.status', string='Action', required=True)
 
 class BrandServiceReport(models.Model):
@@ -20,13 +20,19 @@ class BrandServiceReport(models.Model):
     contact_person_id = fields.Many2one(
         'res.partner', 
         string='Contact Person', 
-        domain="[('parent_id', '=', customer_id)]",
+        domain="[('parent_id', '=', customer_id)]"
     )
     date_created = fields.Datetime(string='Date Created', default=fields.Datetime.now, readonly=True)
     date_service = fields.Date(string='Service Date', required=True)
     status = fields.Selection([
         ('new', 'New'),
         ('no_action', 'No Action Needed'),
-        ('serviced', 'Serviced'),
+        ('serviced', 'Serviced')
     ], string='Status', default='new')
     line_ids = fields.One2many('brandservice.report.line', 'report_id', string='Product Lines')
+
+    @api.model
+    def create(self, vals):
+        if vals.get('name', 'New') == 'New':
+            vals['name'] = self.env['ir.sequence'].next_by_code('brandservice.report') or 'New'
+        return super(BrandServiceReport, self).create(vals)
