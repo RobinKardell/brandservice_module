@@ -48,14 +48,14 @@
         <field name="name">brand.service.list</field>
         <field name="model">brand.service</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="customer_id"/>
                 <field name="product_id"/>
                 <field name="date"/>
                 <field name="service_type"/>
                 <field name="state"/>
-            </tree>
+            </list>
         </field>
     </record>
 
