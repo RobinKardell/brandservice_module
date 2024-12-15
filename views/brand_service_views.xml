@@ -43,9 +43,9 @@
         </field>
     </record>
 
-    <!-- Tree View -->
-    <record id="view_brand_service_tree" model="ir.ui.view">
-        <field name="name">brand.service.tree</field>
+    <!-- List View -->
+    <record id="view_brand_service_list" model="ir.ui.view">
+        <field name="name">brand.service.list</field>
         <field name="model">brand.service</field>
         <field name="arch" type="xml">
             <tree>
@@ -59,33 +59,11 @@
         </field>
     </record>
 
-    <!-- Search View -->
-    <record id="view_brand_service_search" model="ir.ui.view">
-        <field name="name">brand.service.search</field>
-        <field name="model">brand.service</field>
-        <field name="arch" type="xml">
-            <search>
-                <field name="name"/>
-                <field name="customer_id"/>
-                <field name="product_id"/>
-                <field name="date"/>
-                <filter string="Draft" name="draft" domain="[('state','=','draft')]"/>
-                <filter string="Done" name="done" domain="[('state','=','done')]"/>
-                <group expand="0" string="Group By">
-                    <filter string="Customer" name="customer" context="{'group_by':'customer_id'}"/>
-                    <filter string="Product" name="product" context="{'group_by':'product_id'}"/>
-                    <filter string="Month" name="month" context="{'group_by':'date:month'}"/>
-                </group>
-            </search>
-        </field>
-    </record>
-
     <!-- Action -->
     <record id="action_brand_service" model="ir.actions.act_window">
         <field name="name">Brand Services</field>
         <field name="res_model">brand.service</field>
         <field name="view_mode">tree,form</field>
-        <field name="search_view_id" ref="view_brand_service_search"/>
     </record>
 
     <!-- Menu Items -->
