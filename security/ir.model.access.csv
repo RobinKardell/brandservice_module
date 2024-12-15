@@ -1,4 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_brandservice_report,access.brandservice.report,model_brandservice_report,,1,1,1,1
-access_brandservice_report_line,access.brandservice.report.line,model_brandservice_report_line,,1,1,1,1
-access_brandservice_product_status,access.brandservice.product.status,model_brandservice_product_status,,1,1,1,1
+access_brandservice_report,brandservice.report,model_brandservice_report,base.group_user,1,1,1,1
+access_brandservice_report_line,brandservice.report.line,model_brandservice_report_line,base.group_user,1,1,1,1
+access_brandservice_product_status,brandservice.product.status,model_brandservice_product_status,base.group_user,1,1,1,1
