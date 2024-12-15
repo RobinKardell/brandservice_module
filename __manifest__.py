@@ -13,5 +13,6 @@
         "reports/templates/brand_service_report_template.xml"
     ],
     "installable": True,
-    "application": True
+    "application": True,
+    "sequence": 1
 }
