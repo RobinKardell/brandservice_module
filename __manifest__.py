@@ -7,7 +7,8 @@
     "license": "LGPL-3",
     "depends": ["base", "mail"],
     "data": [
-        'security/ir.model.access.csv',
+        'security/ir.model.access.csv',        
+        'data/sequence.xml',
         "views/brand_service_views.xml",
         "reports/brand_service_report.xml",
         "reports/templates/brand_service_report_template.xml"

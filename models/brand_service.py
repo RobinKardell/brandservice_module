@@ -17,6 +17,20 @@ class BrandService(models.Model):
         ('service', 'Service'),
         ('replace', 'Replacement'),
         ('none', 'No Action')
-    ], string='Action', default='new')
-    date = fields.Datetime(string='Date', default=fields.Datetime.now)
+    ], string='Action', default='new', tracking=True)
+    date = fields.Datetime(string='Date', default=fields.Datetime.now, tracking=True)
     technician_id = fields.Many2one('res.users', string='Technician', default=lambda self: self.env.user)
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('confirmed', 'Confirmed'),
+        ('done', 'Done'),
+        ('cancelled', 'Cancelled')
+    ], string='Status', default='draft', tracking=True)
+    notes = fields.Text(string='Notes')
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if not vals.get('reference'):
+                vals['reference'] = self.env['ir.sequence'].next_by_code('brand.service') or 'New'
+        return super().create(vals_list)
