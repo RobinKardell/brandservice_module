@@ -9,6 +9,7 @@ class BrandService(models.Model):
     date = fields.Date(string='Service Date', default=fields.Date.today)
     customer_id = fields.Many2one('res.partner', string='Customer', required=True)
     product_id = fields.Many2one('product.product', string='Product', required=True)
+    location = fields.Char(string='Location')
     serial_number = fields.Char(string='Serial Number')
     state = fields.Selection([
         ('draft', 'Draft'),
@@ -23,6 +24,12 @@ class BrandService(models.Model):
         ('inspection', 'Inspection')
     ], string='Service Type', required=True)
     technician_id = fields.Many2one('res.users', string='Technician', default=lambda self: self.env.user)
+    action = fields.Selection([
+        ('new', 'New'),
+        ('service', 'Service'),
+        ('replace', 'Replacement'),
+        ('none', 'No Action')
+    ], string='Action', default='new')
 
     @api.model
     def create(self, vals):
