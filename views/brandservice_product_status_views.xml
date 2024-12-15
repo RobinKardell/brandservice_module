@@ -1,0 +1,16 @@
+<odoo>
+    <record id="view_form_brandservice_product_status" model="ir.ui.view">
+        <field name="name">brandservice.product.status.form</field>
+        <field name="model">brandservice.product.status</field>
+        <field name="arch" type="xml">
+            <form string="Product Action Status">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,20 +1,15 @@
 {
-    "name": "Brand Service",
-    "version": "1.0",
-    "summary": "Manage brand services with customer integration and PDF reporting",
-    "description": "Track brand services for customers, manage product statuses, and generate reports in Odoo.",
-    "author": "Proreach",
-    "license": "LGPL-3",
-    "depends": ["base", "mail", "product"],
-    "data": [
-        'security/ir.model.access.csv',        
-        'data/sequence.xml',
-        "views/brand_service_views.xml",
-        "reports/brand_service_report.xml",
-        'views/brand_service_views.xml',
-        "reports/templates/brand_service_report_template.xml"
+    'name': 'Brandservice Module',
+    'version': '1.0',
+    'category': 'Services',
+    'summary': 'Manage brandservice reports and product actions',
+    'depends': ['base', 'product'],
+    'data': [
+        'security/ir.model.access.csv',
+        'views/brandservice_report_views.xml',
+        'views/brandservice_product_status_views.xml',
+        'data/ir_sequence_data.xml',
     ],
-    "installable": True,
-    "application": True,
-    "sequence": 1
+    'installable': True,
+    'application': True,
 }

@@ -1,2 +1,1 @@
-from . import brand_service_line
-from . import brand_service
+from . import brandservice_report
