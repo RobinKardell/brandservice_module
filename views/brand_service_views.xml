@@ -33,7 +33,6 @@
     <record id="view_brand_service_tree" model="ir.ui.view">
         <field name="name">brand.service.tree</field>
         <field name="model">brand.service</field>
-        <field name="type">tree</field>
         <field name="arch" type="xml">
             <tree string="Brand Services">
                 <field name="name"/>
