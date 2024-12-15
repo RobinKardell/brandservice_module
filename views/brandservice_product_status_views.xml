@@ -1,9 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- Form View -->
     <record id="view_form_brandservice_product_status" model="ir.ui.view">
         <field name="name">brandservice.product.status.form</field>
         <field name="model">brandservice.product.status</field>
         <field name="arch" type="xml">
-            <form string="Product Action Status">
+            <form>
                 <sheet>
                     <group>
                         <field name="name"/>
@@ -13,4 +15,37 @@
             </form>
         </field>
     </record>
+
+    <!-- Tree View -->
+    <record id="view_tree_brandservice_product_status" model="ir.ui.view">
+        <field name="name">brandservice.product.status.tree</field>
+        <field name="model">brandservice.product.status</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_brandservice_product_status" model="ir.actions.act_window">
+        <field name="name">Product Status</field>
+        <field name="res_model">brandservice.product.status</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first product status!
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu Item -->
+    <menuitem 
+        id="menu_brandservice_product_status"
+        name="Product Status"
+        parent="menu_brandservice_root"
+        action="action_brandservice_product_status"
+        sequence="2"/>
+
 </odoo>

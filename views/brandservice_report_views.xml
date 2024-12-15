@@ -1,25 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- Form View -->
     <record id="view_form_brandservice_report" model="ir.ui.view">
         <field name="name">brandservice.report.form</field>
         <field name="model">brandservice.report</field>
         <field name="arch" type="xml">
-            <form string="Brandservice Report">
+            <form>
+                <header>
+                    <field name="status" widget="statusbar"/>
+                </header>
                 <sheet>
                     <group>
-                        <field name="name" readonly="1"/>
-                        <field name="customer_id"/>
-                        <field name="contact_person_id"/>
-                        <field name="date_service"/>
-                        <field name="status"/>
+                        <group>
+                            <field name="name"/>
+                            <field name="customer_id"/>
+                            <field name="contact_person_id"/>
+                            <field name="date_service"/>
+                        </group>
+                        <group>
+                            <field name="date_created"/>
+                        </group>
                     </group>
                     <notebook>
-                        <page string="Products">
+                        <page string="Product Lines">
                             <field name="line_ids">
                                 <tree editable="bottom">
                                     <field name="product_id"/>
                                     <field name="product_qty"/>
+                                    <field name="line_id"/>
                                     <field name="action_status"/>
-                                    <field name="line_id" readonly="1"/>
                                 </tree>
                             </field>
                         </page>
@@ -29,17 +38,69 @@
         </field>
     </record>
 
+    <!-- Tree View -->
     <record id="view_tree_brandservice_report" model="ir.ui.view">
         <field name="name">brandservice.report.tree</field>
         <field name="model">brandservice.report</field>
         <field name="arch" type="xml">
-            <tree string="Brandservice Reports">
+            <tree>
                 <field name="name"/>
                 <field name="customer_id"/>
                 <field name="contact_person_id"/>
                 <field name="date_service"/>
                 <field name="status"/>
+                <field name="date_created"/>
             </tree>
         </field>
     </record>
+
+    <!-- Search View -->
+    <record id="view_search_brandservice_report" model="ir.ui.view">
+        <field name="name">brandservice.report.search</field>
+        <field name="model">brandservice.report</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="customer_id"/>
+                <field name="contact_person_id"/>
+                <field name="date_service"/>
+                <separator/>
+                <filter string="New" name="new" domain="[('status','=','new')]"/>
+                <filter string="No Action" name="no_action" domain="[('status','=','no_action')]"/>
+                <filter string="Serviced" name="serviced" domain="[('status','=','serviced')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Customer" name="customer" context="{'group_by':'customer_id'}"/>
+                    <filter string="Status" name="status" context="{'group_by':'status'}"/>
+                    <filter string="Service Date" name="date_service" context="{'group_by':'date_service'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_brandservice_report" model="ir.actions.act_window">
+        <field name="name">Brandservice Reports</field>
+        <field name="res_model">brandservice.report</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_search_brandservice_report"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first brandservice report!
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu Items -->
+    <menuitem 
+        id="menu_brandservice_root"
+        name="Brandservice"
+        sequence="10"/>
+
+    <menuitem 
+        id="menu_brandservice_report"
+        name="Reports"
+        parent="menu_brandservice_root"
+        action="action_brandservice_report"
+        sequence="1"/>
+
 </odoo>
