@@ -1,0 +1,15 @@
+<odoo>
+    <template id="report_brand_service">
+        <t t-call="web.html_container">
+            <t t-foreach="doc_ids" t-as="doc">
+                <h1>Brand Service Report</h1>
+                <p><strong>Customer:</strong> <t t-esc="doc.customer_id.name"/></p>
+                <p><strong>Product:</strong> <t t-esc="doc.product_id.name"/></p>
+                <p><strong>Location:</strong> <t t-esc="doc.location"/></p>
+                <p><strong>Action:</strong> <t t-esc="doc.action"/></p>
+                <p><strong>Date:</strong> <t t-esc="doc.date"/></p>
+                <p><strong>Technician:</strong> <t t-esc="doc.technician_id.name"/></p>
+            </t>
+        </t>
+    </template>
+</odoo>
