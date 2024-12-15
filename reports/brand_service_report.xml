@@ -1,54 +1,51 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <data>
-        <record id="brand_service_report" model="ir.actions.report">
-            <field name="name">Brand Service Report</field>
-            <field name="model">brand.service</field>
-            <field name="report_type">qweb-pdf</field>
-            <field name="report_name">brandservice_module.report_brand_service</field>
-            <field name="report_file">brandservice_module.report_brand_service</field>
-            <field name="binding_model_id" ref="model_brand_service"/>
-            <field name="binding_type">report</field>
-        </record>
+    <template id="report_brand_service_document">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <h2>Service Report: <span t-field="doc.name"/></h2>
+                
+                <div class="row mt32 mb32">
+                    <div class="col-6">
+                        <strong>Customer:</strong>
+                        <p t-field="doc.customer_id"/>
+                        <strong>Service Date:</strong>
+                        <p t-field="doc.date"/>
+                        <strong>Technician:</strong>
+                        <p t-field="doc.technician_id"/>
+                    </div>
+                    <div class="col-6">
+                        <strong>Product:</strong>
+                        <p t-field="doc.product_id"/>
+                        <strong>Serial Number:</strong>
+                        <p t-field="doc.serial_number"/>
+                        <strong>Service Type:</strong>
+                        <p t-field="doc.service_type"/>
+                    </div>
+                </div>
 
-        <template id="report_brand_service">
-            <t t-call="web.html_container">
-                <t t-foreach="docs" t-as="doc">
-                    <t t-call="web.external_layout">
-                        <div class="page">
-                            <h2>Brand Service Report</h2>
-                            <div class="row mt32 mb32">
-                                <div class="col-6">
-                                    <strong>Reference:</strong>
-                                    <span t-field="doc.reference"/>
-                                    <br/>
-                                    <strong>Customer:</strong>
-                                    <span t-field="doc.customer_id"/>
-                                    <br/>
-                                    <strong>Product:</strong>
-                                    <span t-field="doc.product_id"/>
-                                </div>
-                                <div class="col-6">
-                                    <strong>Date:</strong>
-                                    <span t-field="doc.date"/>
-                                    <br/>
-                                    <strong>Location:</strong>
-                                    <span t-field="doc.location"/>
-                                    <br/>
-                                    <strong>Action:</strong>
-                                    <span t-field="doc.action"/>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <strong>Notes:</strong>
-                                    <p t-field="doc.notes"/>
-                                </div>
-                            </div>
-                        </div>
-                    </t>
-                </t>
+                <div class="row">
+                    <div class="col-12">
+                        <strong>Service Notes:</strong>
+                        <p t-field="doc.notes"/>
+                    </div>
+                </div>
+
+                <div class="row mt32">
+                    <div class="col-12">
+                        <strong>Status:</strong>
+                        <p t-field="doc.state"/>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_brand_service">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="brandservice_module.report_brand_service_document"/>
             </t>
-        </template>
-    </data>
+        </t>
+    </template>
 </odoo>
